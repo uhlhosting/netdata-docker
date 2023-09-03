@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bookworm
 ADD git-tag /git-tag
 ADD scripts/build.sh /build.sh
 ADD scripts/run.sh /run.sh
