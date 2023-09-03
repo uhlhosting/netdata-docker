@@ -10,6 +10,8 @@ echo "deb http://security.debian.org/debian-security bullseye-security main" >> 
 # install dependencies for build
 # source: https://learn.netdata.cloud/docs/agent/packaging/installer/methods/manual
 
+apt-get update && \
+apt-get install -y curl git && \
 bash <(curl -sSL https://raw.githubusercontent.com/netdata/netdata/master/packaging/installer/install-required-packages.sh)
 
 # fix the extra warning when building netdata
