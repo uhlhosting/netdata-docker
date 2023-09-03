@@ -15,7 +15,7 @@ apt-get -y install apcupsd autoconf autoconf-archive autogen automake cmake curl
 
 # fetch netdata
 
-git clone https://github.com/netdata/netdata.git --depth=100 --recursive /netdata.git
+git clone https://github.com/netdata/netdata.git /netdata.git
 cd /netdata.git
 TAG=$(</git-tag)
 if [ ! -z "$TAG" ]; then
