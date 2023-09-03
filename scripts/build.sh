@@ -44,7 +44,7 @@ git submodule update --init --recursive
 cd /
 rm -rf /netdata.git
 
-dpkg -P iproute2 libelf-dev libjudy-dev liblz4-dev libmnl-dev libprotobuf-dev libssl-dev libuv1-dev libuuid1 libyaml-dev lm-sensors make netcat-openbsd nodejs pkg-config protobuf-compiler python3-mysqldb python3-yaml uuid-dev zlib1g-dev
+dpkg -P iproute2 libelf-dev libjudy-dev liblz4-dev libmnl-dev libprotobuf-dev libssl-dev libuv1-dev libyaml-dev lm-sensors make netcat-openbsd nodejs pkg-config protobuf-compiler python3-mysqldb python3-yaml uuid-dev zlib1g-dev
 
 apt-get -y autoremove
 apt-get clean
