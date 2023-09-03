@@ -12,7 +12,7 @@ echo "deb http://security.debian.org/debian-security bookworm-security main" >> 
 
 apt-get update && \
 apt-get install -y curl git && \
-bash <(curl -sSL https://raw.githubusercontent.com/netdata/netdata/master/packaging/installer/install-required-packages.sh)
+curl -Ss 'https://raw.githubusercontent.com/netdata/netdata/master/packaging/installer/install-required-packages.sh' >/tmp/install-required-packages.sh && bash /tmp/install-required-packages.sh -i netdata-all
 
 # fix the extra warning when building netdata
 
