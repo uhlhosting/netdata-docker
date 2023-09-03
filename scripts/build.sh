@@ -11,13 +11,11 @@ echo "deb http://security.debian.org/debian-security bullseye-security main" >> 
 # source: https://learn.netdata.cloud/docs/agent/packaging/installer/methods/manual
 
 apt-get -qq update
-apt-get -y install zlib1g-dev uuid-dev libmnl-dev gcc make curl git autoconf autogen automake pkg-config netcat-openbsd jq libuv1-dev libyaml-dev liblz4-dev libjudy-dev libssl-dev cmake libelf-dev libprotobuf-dev protobuf-compiler g++
-apt-get -y install autoconf-archive lm-sensors nodejs python python-mysqldb python-yaml libjudydebian1 libuv1 liblz4-1 openssl
-apt-get -y install msmtp msmtp-mta apcupsd fping
+apt-get -y install apcupsd autoconf autoconf-archive autogen automake cmake curl fping g++ gcc git jq libelf-dev libjudy-dev libjudydebian1 liblz4-1 liblz4-dev libmnl-dev libprotobuf-dev libssl-dev libuv1 libuv1-dev libyaml-dev lm-sensors make msmtp msmtp-mta netcat-openbsd nodejs openssl pkg-config protobuf-compiler python python-mysqldb python-yaml uuid-dev zlib1g-dev
 
 # fetch netdata
 
-git clone https://github.com/firehol/netdata.git /netdata.git
+git clone https://github.com/netdata/netdata.git --depth=100 --recursive /netdata.git
 cd /netdata.git
 TAG=$(</git-tag)
 if [ ! -z "$TAG" ]; then
