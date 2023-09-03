@@ -11,9 +11,11 @@ DEBIAN_FRONTEND=noninteractive
 # source: https://learn.netdata.cloud/docs/agent/packaging/installer/methods/manual
 
 
-apt-get update -qq && \
-apt-get install -y ca-certificates git-man netcat-openbsd krb5-locales less libbrotli1 libbsd0 libcbor0.8 libcurl3-gnutls libcurl4 libedit2 liberror-perl libexpat1 libfido2-1 libgdbm-compat4 libgdbm6 libgssapi-krb5-2 libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap-2.5-0 libldap-common libnghttp2-14 libperl5.36 libpsl5 librtmp1 libsasl2-2 libsasl2-modules libsasl2-modules-db libssh2-1 libssl3 libx11-6 libx11-data libxau6 libxcb1 libxdmcp6 libxext6 libxmuu1 netbase openssh-client openssl patch nodejs perl perl-modules-5.36 publicsuffix xauth && \
-apt-get install -y autoconf autoconf-archive autogen automake cmake curl g++ gcc git gzip libatomic1 libuuid1 libelf-dev libjson-c-dev libjudy-dev liblz4-dev libmnl-dev libssl-dev libsystemd-dev libuv1-dev libyaml-dev lm-sensors make pkg-config python3 python3-mysqldb python3-yaml tar uuid-dev zlib1g-dev libprotobuf-dev protobuf-compiler
+apt-get -qq update
+apt-get -y install zlib1g-dev uuid-dev libmnl-dev gcc make curl git autoconf autogen automake pkg-config netcat-openbsd jq libuv1-dev liblz4-dev libjudy-dev libssl-dev cmake libelf-dev libprotobuf-dev protobuf-compiler g++
+apt-get -y install autoconf-archive lm-sensors nodejs python3 python3-mysqldb python3-yaml libjudydebian1 libuv1 liblz4-1 openssl
+apt-get -y install msmtp msmtp-mta apcupsd fping
+
 
 # fix the extra warning when building netdata
 
@@ -44,7 +46,7 @@ git submodule update --init --recursive
 cd /
 rm -rf /netdata.git
 
-dpkg -P iproute2 libelf-dev libjudy-dev liblz4-dev libmnl-dev libprotobuf-dev libssl-dev libuv1-dev libyaml-dev lm-sensors make netcat-openbsd pkg-config protobuf-compiler python3-mysqldb python3-yaml uuid-dev zlib1g-dev
+dpkg -P zlib1g-dev uuid-dev libmnl-dev make git autoconf autogen automake pkg-config libuv1-dev liblz4-dev libjudy-dev libssl-dev cmake libelf-dev libprotobuf-dev protobuf-compiler g++
 
 apt-get -y autoremove
 apt-get clean
