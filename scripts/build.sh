@@ -4,8 +4,8 @@ DEBIAN_FRONTEND=noninteractive
 
 # some mirrors have issues, i skipped httpredir in favor of an eu mirror
 
-echo "deb http://ftp.nl.debian.org/debian/ bullseye main" > /etc/apt/sources.list
-echo "deb http://security.debian.org/debian-security bullseye/updates main" >> /etc/apt/sources.list
+echo "deb http://deb.debian.org/debian/ bullseye main" > /etc/apt/sources.list
+echo "deb http://security.debian.org/debian-security bullseye-security main" >> /etc/apt/sources.list
 
 # install dependencies for build
 # source: https://learn.netdata.cloud/docs/agent/packaging/installer/methods/manual
