@@ -2,7 +2,7 @@
 set -e
 DEBIAN_FRONTEND=noninteractive
 
-# some mirrors have issues, i skipped httpredir in favor of an eu mirror
+# some mirrors have issues, i skipped httpredir in favor of an eu mirror, moved to bullseye
 
 echo "deb http://deb.debian.org/debian/ bullseye main" > /etc/apt/sources.list
 echo "deb http://security.debian.org/debian-security bullseye-security main" >> /etc/apt/sources.list
@@ -10,11 +10,15 @@ echo "deb http://security.debian.org/debian-security bullseye-security main" >> 
 # install dependencies for build
 # source: https://learn.netdata.cloud/docs/agent/packaging/installer/methods/manual
 
-apt-get -qq update
-apt-get -y install apcupsd autoconf autoconf-archive autogen automake cmake curl fping g++ gcc git jq libelf-dev libjudy-dev libjudydebian1 liblz4-1 liblz4-dev libmnl-dev libprotobuf-dev libssl-dev libuv1 libuv1-dev libyaml-dev lm-sensors make msmtp msmtp-mta netcat-openbsd nodejs openssl pkg-config protobuf-compiler python3-yaml python3-mysqldb openssl python3 uuid-dev zlib1g-dev
+apt-get -qq update && \
+apt-get -y install apcupsd autoconf autoconf-archive autogen automake bash cmake curl fping g++ gcc git iproute2 jq libelf-dev libelf1 libjudy-dev libjudydebian1 liblz4-1 liblz4-dev libmnl-dev libprotobuf-dev libssl-dev libuuid libuv1 libuv1-dev libyaml-dev lm-sensors make msmtp msmtp-mta netcat-openbsd nodejs openssl pkg-config protobuf-compiler python python-mysqldb python-yaml python3 python3-mysqldb python3-yaml util-linux uuid-dev zlib zlib1g-dev && \
+apt-get clean -y
+
+# fix the extra warning when building netdata
+
+git config --global advice.detachedHead false
 
 # fetch netdata
-git config --global advice.detachedHead false
 
 git clone https://github.com/netdata/netdata.git /netdata.git
 cd /netdata.git
@@ -34,20 +38,16 @@ git submodule update --init --recursive
 
 ./netdata-installer.sh --dont-wait --dont-start-it --disable-telemetry
 
-# removed hack on 2017/1/3
-#chown root:root /usr/libexec/netdata/plugins.d/apps.plugin
-#chmod 4755 /usr/libexec/netdata/plugins.d/apps.plugin
-
 # remove build dependencies
 
 cd /
 rm -rf /netdata.git
 
-dpkg -P zlib1g-dev uuid-dev libmnl-dev libyaml-dev make git autoconf autogen automake pkg-config libuv1-dev liblz4-dev libjudy-dev libssl-dev cmake libelf-dev libprotobuf-dev protobuf-compiler g++
+dpkg -P autoconf autogen automake bash cmake curl g++ git iproute2 libelf-dev libjudy-dev liblz4-dev libmnl-dev libprotobuf-dev libssl-dev libuuid libuv1-dev libyaml-dev lm-sensors make netcat-openbsd nodejs openssl pkg-config protobuf-compiler python3 python3-mysqldb python3-yaml uuid-dev zlib1g-dev
+
 apt-get -y autoremove
 apt-get clean
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 
 # symlink access log and error log to stdout/stderr
 
